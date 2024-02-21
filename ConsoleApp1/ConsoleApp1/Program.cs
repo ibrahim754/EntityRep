@@ -9,16 +9,10 @@ class Program
 {
     static void Main(string[] args)
     {
-        var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+         SqlDataAdapter adp = new SqlDataAdapter();
 
+       
 
-        var conn = new SqlConnection(config.GetSection("constr").Value);
-
-        conn.Open();
-        PrintAllTable();
-        conn.Close();
-
-         
     }
 
     public static void PrintAllTable()
@@ -59,13 +53,11 @@ class Program
 
         string name = Console.ReadLine();
         decimal balance = Convert.ToDecimal(Console.ReadLine());
-        Wallet wallet1 = new Wallet
-        {
-            Holder = name,
-            Balance = balance
-        };
+        Wallet wallet1 = GetInput();
+    
 
-        var sqlInsert = "Insert into WALLETS  (Holder,Balance) values " + $"(@Holder,@Balance)";
+        var sqlInsert = "Insert into WALLETS  (Holder,Balance) values " 
+            + $"(@Holder,@Balance)";
         SqlParameter par1 = new SqlParameter
         {
             ParameterName = "@Holder",
@@ -95,6 +87,55 @@ class Program
         {
             Console.WriteLine("Couldnot be added");
         }
+    }
+    public static void InsertUsingExcuteSclar()
+    {
+
+        var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+        var conn = new SqlConnection(configuration.GetSection("constr").Value);
+
+        string sql = "Insert into WALLETS (Holder,Balance) Values "
+            + $" (@Holder,@Balance); " // to prevent SQL injection;
+            + $" Select Cast (scope_identity() as int )"; // to return  the id;
+        var wallet = GetInput();
+
+        var HolderParmeter = new SqlParameter
+        {
+            ParameterName = "@Holder",
+            SqlDbType = SqlDbType.VarChar,
+            Direction = ParameterDirection.Input,
+            Value = wallet.Holder
+        };
+        var BalanceParameter = new SqlParameter
+        {
+            ParameterName = "@Balance",
+            SqlDbType = SqlDbType.Decimal,
+            Direction = ParameterDirection.Input,
+            Value = wallet.Balance
+        };
+
+        conn.Open();
+        var sqlCommand = new SqlCommand(sql,conn);
+        sqlCommand.Parameters.Add(HolderParmeter);
+        sqlCommand.Parameters.Add(BalanceParameter);
+        wallet.Id =  (int )sqlCommand.ExecuteScalar(); // return the first column of the first row
+        Console.WriteLine(wallet.ToString());
+
+        conn.Close();
+        
+    }
+    public static Wallet GetInput()
+    {
+        Console.Write("Enter the HolderName: ");
+        string name = Console.ReadLine();
+        Console.Write("\nEnter the BalanceName: ");
+        decimal balance = Convert.ToDecimal(Console.ReadLine());
+        Wallet wallet = new Wallet
+        {
+            Holder = name,
+            Balance = balance
+        };
+        return wallet;
     }
     public class Wallet
     {
