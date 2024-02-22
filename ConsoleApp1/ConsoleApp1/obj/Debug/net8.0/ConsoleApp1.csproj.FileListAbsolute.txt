@@ -131,3 +131,4 @@ F:\C#\EntityFramwork\ConsoleApp1\ConsoleApp1\obj\Debug\net8.0\refint\ConsoleApp1
 F:\C#\EntityFramwork\ConsoleApp1\ConsoleApp1\obj\Debug\net8.0\ConsoleApp1.pdb
 F:\C#\EntityFramwork\ConsoleApp1\ConsoleApp1\obj\Debug\net8.0\ConsoleApp1.genruntimeconfig.cache
 F:\C#\EntityFramwork\ConsoleApp1\ConsoleApp1\obj\Debug\net8.0\ref\ConsoleApp1.dll
+F:\C#\EntityFramwork\ConsoleApp1\ConsoleApp1\bin\Debug\net8.0\Dapper.dll

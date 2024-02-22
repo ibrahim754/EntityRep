@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>ConsoleApp1</id>
+    <version>1.0.0</version>
+    <authors>ConsoleApp1</authors>
+    <description>Package Description</description>
+    <repository type="git" commit="4bad485485b1a40df0e10da14e22684c4d17b0cf" />
+    <dependencies>
+      <group targetFramework="net8.0">
+        <dependency id="Microsoft.Data.SqlClient" version="5.2.0-preview5.24024.3" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Configuration" version="9.0.0-preview.1.24080.9" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Configuration.Json" version="9.0.0-preview.1.24080.9" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="F:\C#\EntityFramwork\ConsoleApp1\ConsoleApp1\bin\Debug\net8.0\ConsoleApp1.runtimeconfig.json" target="lib\net8.0\ConsoleApp1.runtimeconfig.json" />
+    <file src="F:\C#\EntityFramwork\ConsoleApp1\ConsoleApp1\bin\Debug\net8.0\ConsoleApp1.dll" target="lib\net8.0\ConsoleApp1.dll" />
+  </files>
+</package>

@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "sP2V70ofPtx2suDx3KnKOcmIslgE+as88F62KgFN+Cy6V8rx4Qkhm4ZgWs1LLH8CLF4WvaOmjZC4nKsP7jLlYw==",
+  "dgSpecHash": "yC1WfigVGWhz76UO52lV2A/j8mJOG8dN3yoM0y/rmpgoy3547j1VYXmi0xS6X/jjxped6vq217kIZH3JRNx7dw==",
   "success": true,
   "projectFilePath": "F:\\C#\\EntityFramwork\\ConsoleApp1\\ConsoleApp1\\ConsoleApp1.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ibrah\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\ibrah\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
+    "C:\\Users\\ibrah\\.nuget\\packages\\dapper\\2.1.28\\dapper.2.1.28.nupkg.sha512",
     "C:\\Users\\ibrah\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\ibrah\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\ibrah\\.nuget\\packages\\microsoft.data.sqlclient\\5.2.0-preview5.24024.3\\microsoft.data.sqlclient.5.2.0-preview5.24024.3.nupkg.sha512",

@@ -1,5 +1,6 @@
 ﻿namespace MyProject;
 using Microsoft.Extensions.Configuration.Json;
+using Dapper;
 using Microsoft.Extensions.Configuration;
 using System;
 using Microsoft.Data.SqlClient;
@@ -7,11 +8,61 @@ using System.Data;
 
 class Program
 {
+    /* => SQL  Commands;
+     * ExecuteNonQuery: Used for executing SQL commands that don't return data (like INSERT, UPDATE, DELETE). You should open the connection before executing the command and close it immediately after.
+     * 
+     *ExecuteReader: Executes commands that return rows (like SELECT queries). Open the connection, execute the command, read the results, and then close the connection once you're done reading.
+     *
+     *ExecuteScalar: Executes commands that return a single value (like SELECT COUNT(*)). Open the connection, execute the command, get the result, and close the connection.
+     * 
+     */
+
     static void Main(string[] args)
     {
-         SqlDataAdapter adp = new SqlDataAdapter();
+        insert();      
 
-       
+
+
+    }
+    public static void insert()
+    {
+        var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+        IDbConnection db = new SqlConnection(config.GetSection("constr").Value);
+        db.Open();
+        var sql = " Select * from WALLETS ";
+        var dynamicResults = db.Query(sql);
+        foreach (var row in dynamicResults)
+        {
+            Console.WriteLine(row);
+        }
+
+    }
+    public static void dataAdapter()
+    {
+        // It is a bridge between SQL DB and My app, it holds Data table/row, provide offline mode, so i can close connection earlier;
+        var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+        SqlConnection connection = new SqlConnection(configuration.GetSection("constr").Value);
+        DataTable dataTable = new DataTable();
+        string sqlCommand = " Select * from WALLETS ";
+        connection.Open();
+        SqlDataAdapter sqlAdapter = new SqlDataAdapter(sqlCommand, connection);
+
+        sqlAdapter.Fill(dataTable);
+        // After i forword the data into the memory, we can now close the connection;
+        connection.Close();
+        foreach (DataRow dr in dataTable.Rows)
+        {
+            Wallet wallet = new Wallet()
+            {
+                Id = Convert.ToInt32(dr["Id"]),
+                Holder = Convert.ToString(dr["Holder"]),
+                Balance = Convert.ToDecimal(dr["Balance"]),
+            };
+
+            Console.WriteLine(wallet);
+        }
+
+
 
     }
 
@@ -27,9 +78,11 @@ class Program
 
         var command = new SqlCommand(sql, conn);
 
-        command.CommandType = System.Data.CommandType.Text;
+        command.CommandType =  CommandType.Text;
 
         SqlDataReader reader = command.ExecuteReader();
+         
+        // can not use Foreach
         while (reader.Read())
         {
             Wallet wallet = new Wallet
@@ -41,6 +94,7 @@ class Program
             };
             Console.WriteLine(wallet);
         }
+        conn.Close();
     }
     public void insertion()
     {
